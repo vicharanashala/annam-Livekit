@@ -1,0 +1,34 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual environments
+.env
+.venv
+venv/
+env/
+
+# Environment files
+.env
+.env.*
+*.env
+
+# HuggingFace cache
+.huggingface/
+cache/
+~/.cache/huggingface/
+~/.cache/huggingface/hub/
+hf_cache_local
+hf_cache_v2
+
+# Mac
+.DS_Store
+
+
+#models
+*.pth
+*.pt
+# Logs
+*.log

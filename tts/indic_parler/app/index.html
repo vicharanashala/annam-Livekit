@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Parler TTS Streaming Test</title>
+</head>
+<body>
+  <h2>Indic Parler TTS – Streaming Test</h2>
+
+  <textarea id="text" rows="4" cols="60">
+Hello, this is a real time text to speech streaming test.
+  </textarea>
+  <br><br>
+  <button onclick="startTTS()">Start Streaming</button>
+
+  <pre id="log"></pre>
+
+<script>
+async function startTTS() {
+  const log = msg => {
+    document.getElementById("log").textContent += msg + "\n";
+    console.log(msg);
+  };
+
+  log("Sending request...");
+
+  const ctx = new AudioContext({ sampleRate: 44100 });
+  let started = false;
+
+  const res = await fetch("http://localhost:9036/tts", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ text: document.getElementById("text").value })
+  });
+
+  const reader = res.body.getReader();
+  let t0 = performance.now();
+
+  while (true) {
+    const { value, done } = await reader.read();
+    if (done) break;
+
+    if (!started) {
+      log(`First audio chunk at ${(performance.now() - t0).toFixed(1)} ms`);
+      started = true;
+    }
+
+    const pcm16 = new Int16Array(value.buffer);
+    const audioBuffer = ctx.createBuffer(1, pcm16.length, 44100);
+    const channel = audioBuffer.getChannelData(0);
+
+    for (let i = 0; i < pcm16.length; i++) {
+      channel[i] = pcm16[i] / 32768;
+    }
+
+    const src = ctx.createBufferSource();
+    src.buffer = audioBuffer;
+    src.connect(ctx.destination);
+    src.start();
+  }
+
+  log("Streaming finished");
+}
+</script>
+</body>
+</html>

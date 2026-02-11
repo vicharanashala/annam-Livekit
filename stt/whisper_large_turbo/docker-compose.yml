@@ -1,0 +1,24 @@
+services:
+  whisper-server:
+    # Use the active repository 'speaches' instead of 'fedirz'
+    image: fedirz/faster-whisper-server:latest-cuda
+    container_name: whisper_server
+    ports:
+      - "8030:8000"
+    volumes:
+      # Map the cache so you don't re-download the 2GB+ model every restart
+      - ./hf_cache_local:/root/.cache/huggingface
+    environment:
+      # The specific CT2 converted model
+      - WHISPER__MODEL=deepdml/faster-whisper-large-v3-turbo-ct2
+      # Use Float16 for best accuracy/speed balance on GPU (or int8_float16 for faster speed)
+      - WHISPER__COMPUTE_TYPE=float16
+      # Ensure it uses the GPU
+      - WHISPER__DEVICE=cuda
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]

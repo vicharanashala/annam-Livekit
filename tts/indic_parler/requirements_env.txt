@@ -1,0 +1,13 @@
+torch>=2.2.0
+transformers>=4.36.0
+soundfile>=0.12.1
+numpy>=1.24.0
+
+# Parler TTS (install from git)
+parler-tts @ git+https://github.com/huggingface/parler-tts.git
+
+# Audio processing
+scipy>=1.11.0
+
+# IPython kernel for Jupyter
+ipykernel

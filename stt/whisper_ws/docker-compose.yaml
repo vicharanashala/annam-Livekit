@@ -1,0 +1,19 @@
+services:
+  whisper-ws:
+    image: ghcr.io/speaches-ai/speaches:latest-cuda
+    container_name: whisper_ws
+    ports:
+      - "8032:8000"
+    volumes:
+      - ./hf_cache_v2:/home/ubuntu/.cache/huggingface/hub
+    environment:
+      - WHISPER__MODEL=deepdml/faster-whisper-large-v3-turbo-ct2
+      - WHISPER__DEVICE=cuda
+      - WHISPER__COMPUTE_TYPE=float16
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [ gpu ]

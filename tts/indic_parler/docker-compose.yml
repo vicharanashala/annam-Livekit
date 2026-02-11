@@ -1,0 +1,20 @@
+services:
+  indic-parler-tts:
+    build:
+      context: .
+      args:
+        HF_TOKEN=${HF_TOKEN}
+    ports:
+      - "8890:8890"
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [ gpu ]
+    restart: unless-stopped
+    volumes:
+      - ./main.py:/app/main.py
+    environment:
+      - CUDA_VISIBLE_DEVICES=0

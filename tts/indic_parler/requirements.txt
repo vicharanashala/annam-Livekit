@@ -1,0 +1,18 @@
+# Indic Parler TTS FastAPI Server Dependencies
+
+# Web framework
+fastapi>=0.109.0
+uvicorn[standard]>=0.27.0
+
+# ML/AI
+torch>=2.2.0
+transformers>=4.36.0
+soundfile>=0.12.1
+numpy>=1.24.0
+
+# Parler TTS (install from git)
+# pip install git+https://github.com/huggingface/parler-tts.git
+parler-tts @ git+https://github.com/huggingface/parler-tts.git
+
+# Audio processing
+scipy>=1.11.0
