@@ -11,4 +11,5 @@ also tried the same audio sound .wav input and its corresponding reference scrip
 but same effect
 
 13/02/2026
-The new IndicF5 script shared by Shubankar was tested with different Malayalam voice samples to identify a native-sounding speaker. The sound2_female reference audio and its corresponding text were selected for further processing. The model performs well for short prompts; however, for longer prompts, the voice quality degrades and noticeable noise appears at the beginning of the generated audio.
+
+The new IndicF5 script, generate_indicf5_tts_wav, shared by Shubankar was tested with different Malayalam voice samples to identify a native-sounding speaker. The sound2_female reference audio and its corresponding text were selected for further processing. The model performs well for short prompts; however, for longer prompts, the voice quality degrades and noticeable noise appears at the beginning of the generated audio.
