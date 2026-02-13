@@ -1,0 +1,28 @@
+# Test curl command for wav_server.py
+# Save raw PCM and convert to WAV
+
+# 1. Send request and save PCM
+curl -X POST "http://localhost:8000/tts" \
+  -H "Content-Type: application/json" \
+  -d '{"text": "नमस्ते! संगीत की तरह जीवन भी खूबसूरत होता है, बस इसे सही ताल में जीना आना चाहिए."}' \
+  --output output.pcm
+
+# 2. Convert PCM to WAV (24kHz, mono, 16-bit)
+ffmpeg -f s16le -ar 24000 -ac 1 -i output.pcm -y output.wav
+
+# 3. Play the audio
+ffplay output.wav
+
+# Alternative: One-liner to pipe directly to ffplay (no file saved)
+curl -X POST "http://localhost:8000/tts" \
+  -H "Content-Type: application/json" \
+  -d '{"text": "नमस्ते दोस्तों!"}' \
+  --silent | ffplay -f s16le -ar 24000 -ac 1 -i -
+
+# Test with English text
+curl -X POST "http://localhost:8000/tts" \
+  -H "Content-Type: application/json" \
+  -d '{"text": "Hello, this is a test of the text to speech system."}' \
+  --output english_test.pcm
+
+ffmpeg -f s16le -ar 24000 -ac 1 -i english_test.pcm -y english_test.wav
