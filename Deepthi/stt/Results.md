@@ -97,7 +97,7 @@ Overall transcription quality is high and suitable for practical applications wi
 
 18/02/2026
 
-2. Openai Whisper Large V3: Transcribe Audio
+2. Openai Whisper Large V3: Transcribe Audio (Whisper latest)
 Tested the latest OpenAI Whisper model using whisper.load_model("large-v3") on Malayalam audio files.
 
 However, the results were not accurate. The audio was not transcribed correctly in Malayalam. For one or two short audio samples, it partially transcribed the content in Malayalam, but the transcription was still incomplete and inaccurate.
