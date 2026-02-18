@@ -119,3 +119,12 @@ CTC was faster but slightly less context-aware.
 Minor word merging and splitting variations were observed in both methods.
 
 Overall transcription quality is high and suitable for practical applications with optional post-processing (punctuation restoration).
+
+18/02/2026
+Openai Whisper laest version
+
+The latest OpenAI Whisper model was tested using whisper.load_model("large-v3") on Malayalam audio files. However, the transcription results were not sufficiently accurate.
+
+For one or two short audio samples, the model correctly detected Malayalam, but the transcriptions were incomplete and not fully accurate. In most other cases, the model incorrectly transcribed the Malayalam audio into different languages.
+
+Additionally, in some instances, the model translated the speech into another language instead of transcribing it. Due to these inconsistencies, further testing with the OpenAI Whisper model was stopped.
