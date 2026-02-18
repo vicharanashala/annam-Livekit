@@ -1,0 +1,149 @@
+Original: Mujhe PyTorch bahut accha lagta hai, kyuki isme dynamic computation graph hota hai.
+{
+  "success": true,
+  "results": {
+    "hi": "मुझे पाइटॉर्क बहुत अच्छ लगता है, क्यूकी इसमे डायनामिक कम्प्यूटेशन ग्राफ होता है.",
+    "bn": "মুঝে পাইটৰ্চ বাহুত আচ্ছা লাগটা হাই, ক্যুকি ইছমে ডাইনেমিক কম্পিউটেশ্যন গ্ৰাফ হতা হাই."
+  },
+  "message": "Successfully transliterated to 2 language(s)"
+}
+
+Original: Suna hai ki neural network me weight update ke liye backpropagation use hota hai.
+{
+  "success": true,
+  "results": {
+    "hi": "सुना है की न्यूरल नेटवर्क मे वेट अपडेट केई लिये बैकप्रोपेगेशन उसे होता है.",
+    "bn": "চোনা হাই কি নিউৰেল নেটৱৰ্ক মে ৱেইট আপডেট কে লিয়ে বেকপ্ৰপেগেশ্যন উচে হতা হাই."
+  },
+  "message": "Successfully transliterated to 2 language(s)"
+}
+
+Original: Loss function minimize karne ke liye gradient descent algorithm lagta hai.
+{
+  "success": true,
+  "results": {
+    "hi": "लॉस फंक्शन मिनिमाइज करने केई लिये ग्रेडिएंट डिसेंट अल्गोरिथम लगता है.",
+    "bn": "লচ ফাংচন মিনিমাইজ কাৰ্ণে কে লিয়ে গ্ৰেডিয়েণ্ট ডিচেণ্ট এলগৰিথম লাগটা হাই."
+  },
+  "message": "Successfully transliterated to 2 language(s)"
+}
+
+Original: Optimizer jaise Adam aur SGD learning rate ko control karte hain.
+{
+  "success": true,
+  "results": {
+    "hi": "ऑप्टिमाइजर जैसे अदम और एसजीडी लर्निंग रते को कंट्रोल करते हैं.",
+    "bn": "অপ্টিমাইজাৰ জাইছে আদাম আওৰ এছজিডি লাৰ্ণিং ৰাতে ক কন্ট্ৰল কাৰ্তে হেইন."
+  },
+  "message": "Successfully transliterated to 2 language(s)"
+}
+
+Original: Har layer me activation function jaise ReLU ya sigmoid non-linearity lata hai.
+{
+  "success": true,
+  "results": {
+    "hi": "हर लेयर मे एक्टिवेशन फंक्शन जैसे रेलू या सिग्मोइड नोन-लाइनरिटी लता है.",
+    "bn": "হাৰ লেয়াৰ মে একটিভেশ্যন ফাংচন জাইছে ৰেলোঁ য়া ছিগমইড নন-লাইনাৰিটি লাটা হাই."
+  },
+  "message": "Successfully transliterated to 2 language(s)"
+}
+
+Original: Forward pass me input tensor layers se pass hota hai aur output logits milte hain.
+{
+  "success": true,
+  "results": {
+    "hi": "फॉरवर्ड पास मे इनपुट टेंसर लेयर्स से पास होता है और आउटपुट लॉजिट्स मिल्टे हैं.",
+    "bn": "ফৰৱাৰ্ড পিএচএছ মে ইনপুট টেঞ্চৰ লেয়াৰ্ছ চে পিএচএছ হতা হাই আওৰ আউটপুট লজিটছ মিল্টে হেইন."
+  },
+  "message": "Successfully transliterated to 2 language(s)"
+}
+
+Original: Backward pass me autograd gradients calculate karta hai automatically.
+{
+  "success": true,
+  "results": {
+    "hi": "बैकवार्ड पास मे ऑटोग्राड ग्रेडिएंट्स कैल्कुलेट करता है ऑटोमैटिकली.",
+    "bn": "বেকৱাৰ্ড পিএচএছ মে অটোগ্ৰেড গ্ৰেডিয়েণ্টছ কেলকুলেট কাৰ্তা হাই অটোমেটিকেলি."
+  },
+  "message": "Successfully transliterated to 2 language(s)"
+}
+
+Original: Batch normalization training ko stable banata hai aur vanishing gradient kam karta hai.
+{
+  "success": true,
+  "results": {
+    "hi": "बैच नॉर्मलाइजेशन ट्रेनिंग को स्टेबल बनता है और वैनिशिंग ग्रेडिएंट काम करता है.",
+    "bn": "বেচ নৰ্মেলাইজেশ্যন ট্ৰেইনিং ক ষ্টেবল বানাটা হাই আওৰ ভেনিশিং গ্ৰেডিয়েণ্ট কাম কাৰ্তা হাই."
+  },
+  "message": "Successfully transliterated to 2 language(s)"
+}
+
+Original: Dropout regularization overfitting ko reduce karta hai.
+{
+  "success": true,
+  "results": {
+    "hi": "ड्रॉपआउट रेग्युलराइजेशन ओवरफिटिंग को रिड्यूस करता है.",
+    "bn": "ড্ৰপআউট ৰেগুলাৰাইজেশ্যন অভাৰফিটিং ক ৰিডিউচ কাৰ্তা হাই."
+  },
+  "message": "Successfully transliterated to 2 language(s)"
+}
+
+Original: CNN models convolution aur pooling layers se spatial features extract karte hain.
+{
+  "success": true,
+  "results": {
+    "hi": "सीएनएन मॉडल्स कन्वोल्यूशन और पूलिंग लेयर्स से स्पेशियल फीचर्स एक्सट्रैक्ट करते हैं.",
+    "bn": "চিএনএন মডেলছ কনভলিউশ্যন আওৰ পুলিং লেয়াৰ্ছ চে স্পেটিয়েল ফিচাৰ্ছ এক্সট্ৰেক্ট কাৰ্তে হেইন."
+  },
+  "message": "Successfully transliterated to 2 language(s)"
+}
+
+Original: RNN aur LSTM sequence data me temporal dependencies pakadte hain.
+{
+  "success": true,
+  "results": {
+    "hi": "रन्न और एलएसटीएम सीक्वेंस दाता मे टेम्पोरल डिपेंडेंसीज पकड़ते हैं.",
+    "bn": "আৰএনএন আওৰ এলএছটিএম ছিকোয়েন্স ডাটা মে টেম্পোৰেল ডিপেণ্ডেন্সিজ পাকাদতে হেইন."
+  },
+  "message": "Successfully transliterated to 2 language(s)"
+}
+
+Original: Transformer models attention mechanism se context samajhte hain.
+{
+  "success": true,
+  "results": {
+    "hi": "ट्रांसफार्मर मॉडल्स अटेंशन मेकेनिज्म से कॉन्टेक्स्ट समझते हैं.",
+    "bn": "ট্ৰান্সফৰ্মাৰ মডেলছ এটেনশ্যন মেকানিজম চে কনটেক্সট চামাঝতে হেইন."
+  },
+  "message": "Successfully transliterated to 2 language(s)"
+}
+
+Original: GPU acceleration CUDA cores ki wajah se training fast ho jati hai.
+{
+  "success": true,
+  "results": {
+    "hi": "जीपीयू एक्सेलेरेशन क्यूडा कोर्स की वजाह से ट्रेनिंग फास्ट हो जाती है.",
+    "bn": "জিপিইউ এক্সিলাৰেশ্যন কিউডা কোৰেছ কি ৱাজাহ চে ট্ৰেইনিং ফাষ্ট হ জাতি হাই."
+  },
+  "message": "Successfully transliterated to 2 language(s)"
+}
+
+Original: Dataset ko DataLoader batches me divide karta hai memory optimize karne ke liye.
+{
+  "success": true,
+  "results": {
+    "hi": "डेटासेट को डेटालोडर बैचेस मे डिवाइड करता है मेमोरी आप्टिमाइज करने केई लिये.",
+    "bn": "ডাটাছেট ক ডেটালোডাৰ বেচেছ মে ডিভাইড কাৰ্তা হাই মেমৰী অপ্টিমাইজ কাৰ্ণে কে লিয়ে."
+  },
+  "message": "Successfully transliterated to 2 language(s)"
+}
+
+Original: End me model inference karta hai aur softmax probabilities output deta hai.
+{
+  "success": true,
+  "results": {
+    "hi": "इंड मे मॉडेल इंफरेंस करता है और सॉफ्टमैक्स प्रोबेबिलिटीज आउटपुट देता है.",
+    "bn": "এণ্ড মে মডেল ইনফাৰেন্স কাৰ্তা হাই আওৰ ছফ্টমেক্স প্ৰবেবিলিটিজ আউটপুট ডেটা হাই."
+  },
+  "message": "Successfully transliterated to 2 language(s)"
+}
