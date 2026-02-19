@@ -98,6 +98,7 @@ Overall transcription quality is high and suitable for practical applications wi
 18/02/2026
 
 2. Openai Whisper Large V3: Transcribe Audio (Whisper latest)
+   
 Tested the latest OpenAI Whisper model using whisper.load_model("large-v3") on Malayalam audio files.
 
 However, the results were not accurate. The audio was not transcribed correctly in Malayalam. For one or two short audio samples, it partially transcribed the content in Malayalam, but the transcription was still incomplete and inaccurate.
@@ -105,7 +106,9 @@ However, the results were not accurate. The audio was not transcribed correctly 
 In several other cases, the model transcribed the Malayalam audio into different languages. Sometimes, instead of performing transcription, the model automatically translated the audio into another language.
 # ................
 19/02/2026
+
 3. facebook/mms-1b-all
+    
 Completed testing on facebook/mms-1b-all using Malayalam audio samples. A comparison was conducted between Indic Conformer and facebook/mms-1b-all.
 
 For short audio clips, mms-1b-all performs well with minor errors. However, for longer audio samples, it produces more errors.
