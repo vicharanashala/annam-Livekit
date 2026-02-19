@@ -93,7 +93,7 @@ CTC was faster but slightly less context-aware.
 Minor word merging and splitting variations were observed in both methods.
 
 Overall transcription quality is high and suitable for practical applications with optional post-processing (punctuation restoration).
-# >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+# ..............
 
 18/02/2026
 
@@ -103,7 +103,7 @@ Tested the latest OpenAI Whisper model using whisper.load_model("large-v3") on M
 However, the results were not accurate. The audio was not transcribed correctly in Malayalam. For one or two short audio samples, it partially transcribed the content in Malayalam, but the transcription was still incomplete and inaccurate.
 
 In several other cases, the model transcribed the Malayalam audio into different languages. Sometimes, instead of performing transcription, the model automatically translated the audio into another language.
-
+# ................
 19/02/2026
 3. facebook/mms-1b-all
 Completed testing on facebook/mms-1b-all using Malayalam audio samples. A comparison was conducted between Indic Conformer and facebook/mms-1b-all.
