@@ -43,7 +43,7 @@ def transliterate_en_to_indic(text, target_languages, beam_width=4):
 
 result = transliterate_en_to_indic(
     text="Ph No",
-    target_languages=["hi"]
+    target_languages=["ta"]
 )
 
 print(json.dumps(result, indent=2, ensure_ascii=False))
