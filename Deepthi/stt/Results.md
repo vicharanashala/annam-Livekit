@@ -113,5 +113,16 @@ Completed testing on facebook/mms-1b-all using Malayalam audio samples. A compar
 
 For short audio clips, mms-1b-all performs well with minor errors. However, for longer audio samples, it produces more errors.
 
+# ......................
+20/02/2026
+
+4. "openai/whisper-large-v3-turbo"
+
+testing with  model_id = "openai/whisper-large-v3-turbo"
+
+but the audio is not transcribed properly
+model keeps guessing language , also repetition bug and hallucination
+
+
 
 
