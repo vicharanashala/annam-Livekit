@@ -23,7 +23,7 @@ logger = logging.getLogger() # Root logger to capture all logs including livekit
 logger.setLevel(logging.INFO)
 
 # Configure logging to file
-file_handler = logging.FileHandler("/home/aic_u2/Shubhankar/Livekit/livekit_mvp/logs/agent.log")
+file_handler = logging.FileHandler("/home/aic_u2/Shubhankar/Livekit/github/annam-Livekit/examples/agent.log")
 formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 file_handler.setFormatter(formatter)
 logger.addHandler(file_handler)
@@ -161,12 +161,13 @@ async def entrypoint(ctx: JobContext):
 
     # )
     kokoro_tts = openai.TTS(
-            base_url="http://localhost:8890/v1",
-            model="indic-parler-tts",
-            voice="divya",  # or any other voice
-            api_key="indic-parler",
-            response_format="pcm",  # Indic Parler TTS returns raw PCM for streaming
-        )
+    base_url="http://localhost:8003/v1",
+    model="ai4bharat/IndicF5",     # must match what your server routes/accepts
+    api_key="local-anything",      # usually required by the plugin, but your server can ignore it
+    response_format="pcm",         # IMPORTANT: plugin expects pcm bytes
+)
+  
+    
     # kokoro_tts = openai.TTS(
     #         base_url="http://localhost:8000/v1",
     #         model="ai4bharat/indic-parler-tts",

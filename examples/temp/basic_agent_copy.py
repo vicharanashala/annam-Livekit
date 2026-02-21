@@ -122,8 +122,8 @@ async def entrypoint(ctx: JobContext):
     
     # Initialize Ollama LLM using OpenAI Plugin
     ollama_llm = openai.LLM(
-        base_url="http://100.100.108.27:11434/v1",
-        model="nemotron-mini:4b",
+        base_url="http://100.100.108.100:8081/v1",
+        model="Qwen/Qwen3-30B-A3B",
         api_key="ollama", # Required but ignored
     )
     

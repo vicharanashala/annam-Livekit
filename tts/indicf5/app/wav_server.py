@@ -2,13 +2,16 @@ import os
 import sys
 import time
 import io
+import shutil
+import tempfile
 import torch
 import torchaudio
 import soundfile as sf
 import numpy as np
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, UploadFile, File, Form
 from fastapi.responses import StreamingResponse, HTMLResponse, Response
 from pydantic import BaseModel
+from typing import Optional
 from transformers import AutoModel
 
 # -----------------------------------------------------------------------------
@@ -73,6 +76,8 @@ async def load_models():
 class TTSRequest(BaseModel):
     text: str
     speed: float = 1.0
+    ref_audio_path: Optional[str] = None
+    ref_text: Optional[str] = None
 
 @app.post("/tts")
 async def tts_endpoint(req: TTSRequest):
@@ -185,18 +190,47 @@ async def tts_endpoint(req: TTSRequest):
     )
 
 @app.post("/tts_wav")
-async def tts_wav_endpoint(req: TTSRequest):
+async def tts_wav_endpoint(
+    text: str = Form(...),
+    speed: float = Form(1.0),
+    ref_audio_path: Optional[str] = Form(None),
+    ref_text: Optional[str] = Form(None),
+    ref_audio_file: Optional[UploadFile] = File(None)
+):
     """
     Non-streaming endpoint.
     Returns a WAV file directly (audio/wav).
+    Accepts reference audio via file upload or path.
     """
     if not model:
         raise HTTPException(status_code=500, detail="Model not loaded")
 
+    temp_ref_file = None
     try:
-        # 1. Prepare Reference Audio
+        # 1. Determine Reference Audio Source
+        current_ref_audio = REF_AUDIO_PATH # Default
+        
+        if ref_audio_file:
+            # Save uploaded file to temp
+            temp = tempfile.NamedTemporaryFile(delete=False, suffix=".wav")
+            temp_ref_file = temp.name
+            temp.close()
+            
+            with open(temp_ref_file, "wb") as buffer:
+                shutil.copyfileobj(ref_audio_file.file, buffer)
+            
+            current_ref_audio = temp_ref_file
+            print(f"[TTS WAV] Using uploaded reference audio: {current_ref_audio}")
+            
+        elif ref_audio_path:
+            current_ref_audio = ref_audio_path
+            print(f"[TTS WAV] Using reference audio path: {current_ref_audio}")
+
+        # 2. Determine Reference Text
+        current_ref_text = ref_text if ref_text else REF_TEXT
+        
         ref_audio_fname, ref_text_final = preprocess_ref_audio_text(
-            REF_AUDIO_PATH, REF_TEXT, show_info=lambda x: None
+            current_ref_audio, current_ref_text, show_info=lambda x: None
         )
         
         # Load Audio
@@ -210,14 +244,17 @@ async def tts_wav_endpoint(req: TTSRequest):
         target_sample_rate = 24000
         hop_length = 256
         target_rms = 0.1
-        speed = req.speed if hasattr(req, 'speed') else model.config.speed
+        # Use speed from Form input
+        # speed = req.speed if hasattr(req, 'speed') else model.config.speed 
+        # Since we are using Form, speed is directly available variable
+        
         nfe_step = 8 
         
         # Max chars calculation
         max_chars = int(len(ref_text_final.encode("utf-8")) / (audio.shape[-1] / sr) * (25 - audio.shape[-1] / sr))
         
         # 2. Chunk Input
-        gen_text_batches = chunk_text(req.text, max_chars=max_chars)
+        gen_text_batches = chunk_text(text, max_chars=max_chars)
         print(f"[TTS WAV] Generating {len(gen_text_batches)} chunks...")
         
         # 3. Process
@@ -286,6 +323,14 @@ async def tts_wav_endpoint(req: TTSRequest):
         import traceback
         traceback.print_exc()
         raise HTTPException(status_code=500, detail=str(e))
+    finally:
+        # Cleanup temp file if it was created
+        if temp_ref_file and os.path.exists(temp_ref_file):
+            try:
+                os.remove(temp_ref_file)
+                print(f"[TTS WAV] Cleaned up temp file: {temp_ref_file}")
+            except Exception as cleanup_err:
+                print(f"[TTS WAV] Failed to cleanup temp file: {cleanup_err}")
 
 # -----------------------------------------------------------------------------
 # 4. FRONTEND

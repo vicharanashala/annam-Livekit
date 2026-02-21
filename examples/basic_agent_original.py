@@ -16,7 +16,7 @@ logger = logging.getLogger() # Root logger to capture all logs including livekit
 logger.setLevel(logging.INFO)
 
 # Configure logging to file
-file_handler = logging.FileHandler("/home/aic_u2/Shubhankar/Livekit/livekit_mvp/logs/agent.log")
+file_handler = logging.FileHandler("/home/aic_u2/Shubhankar/Livekit/github/annam-Livekit/examples/agent.log")
 formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 file_handler.setFormatter(formatter)
 logger.addHandler(file_handler)
@@ -89,44 +89,27 @@ server.setup_fnc = prewarm
 async def entrypoint(ctx: JobContext):
     ctx.log_context_fields = {"room": ctx.room.name}
 
-    # Initialize Whisper STT using OpenAI Plugin
-    # whisper_stt = openai.STT(
-    #     base_url="http://localhost:8032/v1",
-    #     model="deepdml/faster-whisper-large-v3-turbo-ct2",
-    #     api_key="whisper", 
-    #     # language="hi"
-    # )
     whisper_stt = openai.STT(
-        base_url="http://100.100.108.28:8007/v1",
-        model="mistralai/Voxtral-Mini-3B-2507",
-        api_key="whisper", 
-        # language="hi"
+        base_url="http://localhost:8030/v1",
+        model="deepdml/faster-whisper-large-v3-turbo-ct2",
+        api_key="whisper", # Required but ignored
     )
     
     # Initialize Ollama LLM using OpenAI Plugin
-    # ollama_llm = openai.LLM(
-    #     base_url="http://100.100.108.27:11434/v1",
-    #     model="qwen3:32b",
-    #     api_key="ollama", 
-        # )
-    BASE_URL = "http://100.100.108.28:8006/v1"
-    MODEL_ID ="Qwen/Qwen3-8B"
     ollama_llm = openai.LLM(
-        base_url=BASE_URL,
-        model=MODEL_ID,
-        api_key="ollama", 
-        tool_choice="auto",
+        base_url="http://100.100.108.100:8081/v1",
+        model="Qwen/Qwen3-30B-A3B",
+        api_key="ollama", # Required but ignored
     )
     
     # Initialize Kokoro TTS using OpenAI Plugin
     kokoro_tts = openai.TTS(
         base_url="http://localhost:8880/v1",
         model="kokoro",
-        voice="af_sky",
-        # voice ="hf_alpha",
-        api_key="kokoro", 
-
+        voice="af_bella",
+        api_key="kokoro", # Required but ignored
     )
+    
 
     # Convert MCP_SERVERS dict to list of MCPServerHTTP
     mcp_servers_list = [mcp.MCPServerHTTP(url=url) for url in MCP_SERVERS.values()]

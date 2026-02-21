@@ -1,0 +1,5 @@
+livekit-agents[mcp]==1.4.1
+livekit-plugins-openai==1.4.1
+livekit-plugins-silero==1.4.1
+httpx>=0.28.0
+python-dotenv>=1.0.0

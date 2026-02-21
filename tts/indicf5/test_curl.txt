@@ -26,3 +26,22 @@ curl -X POST "http://localhost:8000/tts" \
   --output english_test.pcm
 
 ffmpeg -f s16le -ar 24000 -ac 1 -i english_test.pcm -y english_test.wav
+
+# 4. Test with Dynamic Reference Audio and Text (wav_server.py update)
+# Replace 'path/to/ref.wav' with an actual path on the server
+curl -X POST "http://localhost:8000/tts_wav" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "text": "This is a test with a dynamic reference voice.",
+    "ref_audio_path": "/home/aic_u2/Shubhankar/Livekit/github/annam-Livekit/tts/indicf5/prompts/PAN_F_HAPPY_00001.wav",
+    "ref_text": "Original reference text goes here if needed, or use the default one associated with the file."
+  }' \
+  --output dynamic_test.wav
+
+# 5. Test with File Upload (wav_server.py update)
+# Use -F for multipart/form-data
+curl -X POST "http://localhost:8000/tts_wav" \
+  -F "text=Testing file upload for reference audio." \
+  -F "ref_audio_file=@/home/aic_u2/Shubhankar/Livekit/github/annam-Livekit/tts/indicf5/IndicF5/prompts/PAN_F_HAPPY_00001.wav" \
+  -F "ref_text=Original reference text." \
+  --output upload_test.wav

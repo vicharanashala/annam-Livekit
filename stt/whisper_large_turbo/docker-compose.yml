@@ -11,8 +11,8 @@ services:
     environment:
       # The specific CT2 converted model
       - WHISPER__MODEL=deepdml/faster-whisper-large-v3-turbo-ct2
-      # Use Float16 for best accuracy/speed balance on GPU (or int8_float16 for faster speed)
-      - WHISPER__COMPUTE_TYPE=float16
+      # Use int8_float16 for compatibility and good speed on GPU
+      - WHISPER__COMPUTE_TYPE=int8_float16
       # Ensure it uses the GPU
       - WHISPER__DEVICE=cuda
     deploy:
