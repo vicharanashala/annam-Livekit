@@ -18,7 +18,7 @@
 - Punjabi (Gurmukhi) works when explicit voice is set.
 - Mixed-language speech shows accent bias depending on voice.
 
-- ## Latency(in seconds)
+## Latency(in seconds)
 - hi-IN hi native general latency: 1.784
 - hi-IN hi native agri latency: 1.802
 - hi-IN hi native numbers latency: 1.814
