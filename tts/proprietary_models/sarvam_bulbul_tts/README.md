@@ -1,4 +1,4 @@
-# Azure Speech TTS – Evaluation
+# Sarvam Bulbul TTS – Evaluation
 
 ## Voices Used
 - Hindi: hi-IN
