@@ -16,7 +16,8 @@ logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
 # Configure logging to file
-file_handler = logging.FileHandler("/home/aic_u2/Shubhankar/Livekit/github/annam-Livekit/Livekit/log")
+#file_handler = logging.FileHandler("/home/aic_u2/Shubhankar/Livekit/github/annam-Livekit/Livekit/log")
+file_handler = logging.FileHandler("./log")
 formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 file_handler.setFormatter(formatter)
 logger.addHandler(file_handler)
