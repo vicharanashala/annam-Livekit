@@ -1,11 +1,11 @@
 # Amazon Polly TTS – Evaluation
 
 ## Voices Used
-- Hindi: hi-IN-AaravNeural
-- Punjabi: pa-IN-OjasNeural
-- Bengali: bn-IN-TanishaaNeural
-- Gujarati: gu-IN-DhwaniNeural
-- Tamil: ta-IN-PallaviNeural
+- Hindi: hi-IN
+- Punjabi: pa-IN
+- Bengali: bn-IN
+- Gujarati: gu-IN
+- Tamil: ta-IN
 
 ## Test Coverage
 - Native scripts
