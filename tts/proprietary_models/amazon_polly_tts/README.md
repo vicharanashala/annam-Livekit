@@ -1,50 +1,38 @@
 # Amazon Polly TTS – Evaluation
 
-## Environment
-- AWS Polly client region: ap-south-1
-- Available voice(s) for India in our catalog: en-IN
-- Attempted LanguageCode filters:
-  - hi-IN returned 0 voices
-  - bn-IN, gu-IN, pa-IN returned ValidationException (invalid LanguageCode)
-  - ta-IN returned 0 voices
-- Engine tested: standard
+## Voices Used
+- Hindi: hi-IN-AaravNeural
+- Punjabi: pa-IN-OjasNeural
+- Bengali: bn-IN-TanishaaNeural
+- Gujarati: gu-IN-DhwaniNeural
+- Tamil: ta-IN-PallaviNeural
 
-## Test Matrix
-- Languages: Hindi, Punjabi, Bengali, Gujarati, Tamil
-- Inputs: native script + roman script + mixed + numerics (date + phone)
+## Test Coverage
+- Native scripts
+- Roman scripts
+- Mixed (Hinglish)
+- Numerics (dates, phone numbers)
 
-## Observations (Audio)
-### Native scripts
-- bn/gu/pa/ta: FAIL
-  - Output does not speak native words; primarily reads numerals (dates/phone) and skips native text.
-- hi: PARTIAL
-  - Reads native Hindi words but clarity is noticeably lower than Azure.
-  - Native phone-number sentence is not spoken in a phone-number style (digit grouping issue).
-
-### Roman scripts
-- bn/gu/ta/pa: FAIL
-  - Roman text is spoken with English accent/pronunciation (treated as English text).
-- hi: OK for digits (phone/date) but accent is English.
-
-## Verdict
-Amazon Polly is not suitable for the multilingual Indian language requirement.
-At best, it can be used for en-IN baseline or English-only flows.
+## Key Findings
+- Native script synthesis does not work well across all tested languages. Output does not speak native words; primarily reads numerals (dates/phone) and skips native text. For hindi, the model reads native words but the clarity is noticeably lower.
+- roman script synthesis works ok across all tested languages. Roman text is spoken with english accent.
+- Mixed-language speech shows accent bias towards english.
 
 ## Latency(in seconds)
-- hi native general -> amazon_polly_enIN_hi_native_general.wav | latency: 0.83 s
-- hi native agri -> amazon_polly_enIN_hi_native_agri.wav | latency: 0.28 s
-- hi native numbers -> amazon_polly_enIN_hi_native_numbers.wav | latency: 0.298 s
-- hi roman roman_numbers -> amazon_polly_enIN_hi_roman_roman_numbers.wav | latency: 0.186 s
-- pa native general -> amazon_polly_enIN_pa_native_general.wav | latency: 0.138 s
-- pa native numbers -> amazon_polly_enIN_pa_native_numbers.wav | latency: 0.179 s
-- pa roman roman_numbers -> amazon_polly_enIN_pa_roman_roman_numbers.wav | latency: 0.183 s
-- bn native general -> amazon_polly_enIN_bn_native_general.wav | latency: 0.14 s
-- bn native numbers -> amazon_polly_enIN_bn_native_numbers.wav | latency: 0.177 s
-- bn roman roman_numbers -> amazon_polly_enIN_bn_roman_roman_numbers.wav | latency: 0.182 s
-- gu native general -> amazon_polly_enIN_gu_native_general.wav | latency: 0.138 s
-- gu native numbers -> amazon_polly_enIN_gu_native_numbers.wav | latency: 0.182 s
-- gu roman roman_numbers -> amazon_polly_enIN_gu_roman_roman_numbers.wav | latency: 0.185 s
-- ta native general -> amazon_polly_enIN_ta_native_general.wav | latency: 0.145 s
-- ta native numbers -> amazon_polly_enIN_ta_native_numbers.wav | latency: 0.184 s
-- ta roman roman_numbers -> amazon_polly_enIN_ta_roman_roman_numbers.wav | latency: 0.187 s
-- mix mixed hinglish -> amazon_polly_enIN_mix_mixed_hinglish.wav | latency: 0.161 s
+- hi-IN hi native general latency: 0.83 s
+- hi-IN hi native agri latency: 0.28 s
+- hi-IN hi native numbers latency: 0.298 s
+- hi-IN hi roman roman_numbers latency: 0.186 s
+- pa-IN pa native general latency: 0.138 s
+- pa-IN pa native numbers latency: 0.179 s
+- pa-IN pa roman roman_numbers latency: 0.183 s
+- bn-IN bn native general latency: 0.14 s
+- bn-IN bn native numbers latency: 0.177 s
+- bn-IN bn roman roman_numbers latency: 0.182 s
+- gu-IN gu native general latency: 0.138 s
+- gu-IN gu native numbers latency: 0.182 s
+- gu-IN gu roman roman_numbers latency: 0.185 s
+- ta-IN ta native general latency: 0.145 s
+- ta-IN ta native numbers latency: 0.184 s
+- ta-IN ta roman roman_numbers latency: 0.187 s
+- hi-IN en mixed hinglish latency: 0.161 s
