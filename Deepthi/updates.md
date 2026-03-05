@@ -128,3 +128,9 @@ The latest OpenAI Whisper model was tested using whisper.load_model("large-v3") 
 For one or two short audio samples, the model correctly detected Malayalam, but the transcriptions were incomplete and not fully accurate. In most other cases, the model incorrectly transcribed the Malayalam audio into different languages.
 
 Additionally, in some instances, the model translated the speech into another language instead of transcribing it. Due to these inconsistencies, further testing with the OpenAI Whisper model was stopped.
+
+05/03/2026
+Testing the indicconformer with more malayalam audios which generated using Google ai studio
+This audio contains include numbers, time (AM/PM, മണി, hours), date/month/year, and some English words written in Malayalam script (English + Malayalam mix). For final comparison the results are copy pasted in one document
+
+
