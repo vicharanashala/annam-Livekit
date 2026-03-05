@@ -1,11 +1,11 @@
 # Google Cloud Chirp TTS – Evaluation
 
 ## Voices Used
-- Hindi: hi-IN-Chirp-A
-- Punjabi: pa-IN-Chirp-A
-- Bengali: bn-IN-Chirp-A
-- Gujarati: gu-IN-Chirp-A
-- Tamil: ta-IN-Chirp-A
+- Hindi: hi-IN-Chirp3-HD-Achernar
+- Punjabi: pa-IN-Chirp3-HD-Achernar
+- Bengali: bn-IN-Chirp3-HD-Achernar
+- Gujarati: gu-IN-Chirp3-HD-Achernar
+- Tamil: ta-IN-Chirp3-HD-Achernar
 
 ## Test Coverage
 - Native scripts
