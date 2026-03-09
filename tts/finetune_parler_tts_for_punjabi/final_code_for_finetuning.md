@@ -1,0 +1,21 @@
+TOKENIZERS_PARALLELISM=false HF_DATASETS_IN_MEMORY_MAX_SIZE=0 myenv/bin/accelerate launch --num_processes=1 \
+training/run_parler_tts_training.py \
+--model_name_or_path parler-tts/parler-tts-mini-v1 \
+--feature_extractor_name parler-tts/dac_44khZ_8kbps \
+--description_tokenizer_name google/flan-t5-large \
+--prompt_tokenizer_name google/flan-t5-large \
+--train_dataset_name /home/jupyter-koustav/fine_tuning/English_perfect.csv \
+--train_dataset_config_name default \
+--target_audio_column_name audio \
+--description_column_name description \
+--prompt_column_name text \
+--num_train_epochs 4 \
+--per_device_train_batch_size 4 \
+--learning_rate 0.00095 \
+--output_dir /home/jupyter-koustav/fine_tuning/parler_output \
+--save_to_disk /home/jupyter-koustav/fine_tuning/parler_output/preprocessed_dataset \
+--temporary_save_to_disk /home/jupyter-koustav/fine_tuning/parler_output/tmp_codec \
+--do_train \
+--overwrite_output_dir \
+--report_to none \
+--dataloader_num_workers 0
