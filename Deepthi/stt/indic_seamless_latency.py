@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 # coding: utf-8
 
+
+# `tgt_lang` in  afr, amh, arb, ary, arz, asm, azj, bel, ben, bos, bul, cat, ceb, ces, ckb, cmn, cmn_Hant, cym, dan, deu, ell, eng, est, eus, fin, fra, fuv, gaz, gle, glg, guj, heb, hin, hrv, hun, hye, ibo, ind, isl, ita, jav, jpn, kan, kat, kaz, khk, khm, kir, kor, lao, lit, lug, luo, lvs, mai, mal, mar, mkd, mlt, mni, mya, nld, nno, nob, npi, nya, ory, pan, pbt, pes, pol, por, ron, rus, sat, slk, slv, sna, snd, som, spa, srp, swe, swh, tam, tel, tgk, tgl, tha, tur, ukr, urd, uzn, vie, yor, yue, zlm, zul
+
 # In[ ]:
 
 
@@ -15,9 +18,9 @@ from transformers import AutoProcessor, SeamlessM4Tv2ForSpeechToText
 # Settings
 # -------------------------
 MODEL_ID = "ai4bharat/indic-seamless"
-AUDIO_PATH = "sound9_female.wav"
+AUDIO_PATH = "audio_pa/pa6.mp3"
 OUTPUT_TXT = "output.txt"
-TARGET_LANG = "mal"   # Malayalam
+TARGET_LANG = "pan" #Punjab  # ml= Malayalam # hin= Hindi
 
 # Choose decoding mode:
 # "deterministic"  -> Option 1
