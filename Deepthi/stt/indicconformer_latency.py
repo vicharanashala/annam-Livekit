@@ -11,8 +11,8 @@ from transformers import AutoModel
 # Settings
 # -------------------------
 MODEL_ID = "ai4bharat/indic-conformer-600m-multilingual"
-AUDIO_PATH = "sound1_female.wav"
-TARGET_LANG = "ml"
+AUDIO_PATH = "audio_pa/pa7.mp3"
+TARGET_LANG = "pa" # Punjabi , # Ml=Malayalam , # hi = Hindi
 TARGET_SAMPLE_RATE = 16000
 
 # -------------------------
@@ -80,8 +80,8 @@ ctc_rtf = ctc_inference_time / audio_duration
 
 print("\n========== CTC ==========")
 print("CTC Transcription:", transcription_ctc)
-print(f"CTC Inference Time: {ctc_inference_time:.3f} sec")
-print(f"CTC RTF: {ctc_rtf:.3f}")
+# print(f"CTC Inference Time: {ctc_inference_time:.3f} sec")
+# print(f"CTC RTF: {ctc_rtf:.3f}")
 
 # ==========================================================
 # 🔥 RNNT LATENCY
@@ -104,8 +104,8 @@ rnnt_rtf = rnnt_inference_time / audio_duration
 
 print("\n========== RNNT ==========")
 print("RNNT Transcription:", transcription_rnnt)
-print(f"RNNT Inference Time: {rnnt_inference_time:.3f} sec")
-print(f"RNNT RTF: {rnnt_rtf:.3f}")
+# print(f"RNNT Inference Time: {rnnt_inference_time:.3f} sec")
+# print(f"RNNT RTF: {rnnt_rtf:.3f}")
 
 # -------------------------
 # Save Output
@@ -118,6 +118,15 @@ with open("final_transcription.txt", "w", encoding="utf-8") as f:
 
 print("\nSaved to final_transcription.txt")
 
+# -------------------------
+# CTC
+print("CTC")
+print(f"CTC Inference Time: {ctc_inference_time:.3f} sec")
+print(f"CTC RTF: {ctc_rtf:.3f}")
+# RNNT
+print("RNNT")
+print(f"RNNT Inference Time: {rnnt_inference_time:.3f} sec")
+print(f"RNNT RTF: {rnnt_rtf:.3f}")
 # -------------------------
 # Speed Comparison
 # -------------------------
