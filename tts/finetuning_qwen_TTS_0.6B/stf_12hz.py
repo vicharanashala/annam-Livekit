@@ -13,11 +13,9 @@ from torch.optim import AdamW
 from torch.utils.data import DataLoader
 from transformers import AutoConfig
 
-
 LOCAL_MODEL_PATH = "/models/huggingface/models--Qwen--Qwen3-TTS-12Hz-1.7B-Base/snapshots/fd4b254389122332181a7c3db7f27e918eec64e3"
 
 target_speaker_embedding = None
-
 
 def train():
     global target_speaker_embedding
@@ -27,31 +25,30 @@ def train():
     parser.add_argument("--output_model_path", type=str, default="output")
     parser.add_argument("--train_jsonl", type=str, required=True)
     parser.add_argument("--batch_size", type=int, default=2)
-    parser.add_argument("--lr", type=float, default=2e-5)
+    parser.add_argument("--lr", type=float, default=2e-6)
     parser.add_argument("--num_epochs", type=int, default=20)
     parser.add_argument("--speaker_name", type=str, default="speaker_test")
     args = parser.parse_args()
+
+    print(f"Using local model path: {LOCAL_MODEL_PATH}")
 
     accelerator = Accelerator(
         gradient_accumulation_steps=4,
         mixed_precision="bf16"
     )
 
-    MODEL_PATH = LOCAL_MODEL_PATH
+    MODEL_PATH = args.init_model_path
 
-    # Load model
     qwen3tts = Qwen3TTSModel.from_pretrained(
-        args.init_model_path,
+        MODEL_PATH,
         torch_dtype=torch.bfloat16,
         attn_implementation="eager",
     )
 
     config = AutoConfig.from_pretrained(LOCAL_MODEL_PATH)
 
-    # Load dataset
     train_data = open(args.train_jsonl).readlines()
     train_data = [json.loads(line) for line in train_data]
-
     dataset = TTSDataset(train_data, qwen3tts.processor, config)
     train_dataloader = DataLoader(
         dataset,
@@ -70,7 +67,6 @@ def train():
 
     for epoch in range(args.num_epochs):
         for step, batch in enumerate(train_dataloader):
-
             with accelerator.accumulate(model):
 
                 input_ids = batch['input_ids']
@@ -94,7 +90,6 @@ def train():
 
                 input_text_embedding = model.talker.model.text_embedding(input_text_ids) * text_embedding_mask
                 input_codec_embedding = model.talker.model.codec_embedding(input_codec_ids) * codec_embedding_mask
-
                 input_codec_embedding[:, 6, :] = speaker_embedding
 
                 input_embeddings = input_text_embedding + input_codec_embedding
@@ -132,37 +127,38 @@ def train():
                 optimizer.zero_grad()
 
             if step % 10 == 0:
-                accelerator.print(f"Epoch {epoch} | Step {step} | Loss: {loss.item():.4f}")
+                accelerator.print(f"Epoch {epoch+1} | Step {step} | Loss: {loss.item():.4f}")
 
-        # Save only every 5 epochs
+        # save checkpoint every 5 epochs
         if (epoch + 1) % 5 == 0 and accelerator.is_main_process:
 
             output_dir = os.path.join(args.output_model_path, f"checkpoint-epoch-{epoch+1}")
-            os.makedirs(output_dir, exist_ok=True)
 
-            # copy config
-            input_config_file = os.path.join(LOCAL_MODEL_PATH, "config.json")
+            # copy ALL files from base model including speech_tokenizer
+            shutil.copytree(LOCAL_MODEL_PATH, output_dir, dirs_exist_ok=True)
+            print(f"Copied base model files to: {output_dir}")
+
+            # update config.json with speaker info
             output_config_file = os.path.join(output_dir, "config.json")
+            input_config_file = os.path.join(LOCAL_MODEL_PATH, "config.json")
 
             with open(input_config_file, 'r', encoding='utf-8') as f:
                 config_dict = json.load(f)
 
             config_dict["tts_model_type"] = "custom_voice"
-
             talker_config = config_dict.get("talker_config", {})
             talker_config["spk_id"] = {args.speaker_name: 3000}
             talker_config["spk_is_dialect"] = {args.speaker_name: False}
-
             config_dict["talker_config"] = talker_config
 
             with open(output_config_file, 'w', encoding='utf-8') as f:
                 json.dump(config_dict, f, indent=2, ensure_ascii=False)
 
-            # save model
+            # save fine-tuned model weights
             unwrapped_model = accelerator.unwrap_model(model)
             state_dict = {k: v.detach().to("cpu") for k, v in unwrapped_model.state_dict().items()}
 
-            # remove speaker encoder
+            # remove speaker encoder weights
             state_dict = {k: v for k, v in state_dict.items() if not k.startswith("speaker_encoder")}
 
             # inject speaker embedding
@@ -172,8 +168,7 @@ def train():
             save_path = os.path.join(output_dir, "model.safetensors")
             save_file(state_dict, save_path)
 
-            print(f"Checkpoint saved at: {output_dir}")
-
+            print(f"✅ Checkpoint saved at: {output_dir}")
 
 if __name__ == "__main__":
     train()
