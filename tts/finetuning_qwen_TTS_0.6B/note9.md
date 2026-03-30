@@ -1,0 +1,6 @@
+Began working on inference for the Qwen TTS 1.7B model on VM, I started exploring datasets and found the Punjabi TTS Monologue Dataset (FutureBeeAI) with native speaker audio.
+After VM recovery, resumed inference testing and evaluated numbers & mixed content, where the model performed well for long numbers but struggled with cases like airline codes (e.g., AI202 pronounced incorrectly).
+Conducted same sentence multiple times test to check consistency, randomness, and stability; observed variation in audio length and inconsistent pronunciation across runs.
+Performed long text testing (5–8 lines) and found that while initial parts were good, later parts showed issues like increased speech speed, missing pauses, and inconsistent emotion.
+Ran a repetition stress test, where the model initially performed well but later introduced incorrect pauses and faster speech, indicating instability in long repetitive sequences.
+Tested mixed language (Punjabi + English) inputs; found good English pronunciation and generally correct Punjabi output, but noticed issues with complex Punjabi words between English phrases.
