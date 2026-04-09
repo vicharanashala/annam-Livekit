@@ -12,3 +12,124 @@ the key point:
 
 2. Mistral tts=Voxtral
  not supporting finetuned model
+
+3. Cosyvoice 2
+   Tried finetuninfg the latest version - installed all the packages  but many of the files are not suitable 
+5. Sesame -csm 1b
+    Tried fine tuning using small subset of Hindi dataset(train-3000 and val - 600) epoch 50
+   testing- produced uncleared voice.
+
+   # Steps
+   https://github.com/knottwill/sesame-finetune
+
+# Convert train.txt and val.txt into .json format
+Deepthi/TTS/Finetuning/IndicSynth_processed/Hindi/train.json
+Deepthi/TTS/Finetuning/IndicSynth_processed/Hindi/val.json
+
+echo "WANDB_API_KEY=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" > .env
+echo "CSM_REPO_PATH=/home/deepthi/Deepthi/TTS/Finetuning/Sesame/csm" >> .env
+echo "AUDIO_NUM_CODEBOOKS=32"
+
+
+
+python pretokenize.py \
+  --train_data /home/deepthi/Deepthi/TTS/Finetuning/IndicSynth_processed/Hindi/train.json \
+  --val_data /home/deepthi/Deepthi/TTS/Finetuning/IndicSynth_processed/Hindi/val.json \
+  --output /home/deepthi/Deepthi/TTS/Finetuning/IndicSynth_processed/Hindi/tokenized_data.hdf5
+
+# to start training using pretrained weights
+python train.py \
+  --data /home/deepthi/Deepthi/TTS/Finetuning/IndicSynth_processed/Hindi/tokenized_data.hdf5 \
+  --config ./configs/finetune_param_defaults.yaml \
+  --n_epochs 25 \
+  --gen_every 500 \
+  --gen_sentence "यह एक परीक्षण वाक्य है"
+
+# to start training from scratch
+
+python train.py \
+  --data /home/deepthi/Deepthi/TTS/Finetuning/IndicSynth_processed/Hindi/tokenized_data.hdf5 \
+  --config ./configs/finetune_param_defaults.yaml \
+  --train_from_scratch \
+  --n_epochs 1 \
+  --gen_every 100 \
+  --gen_sentence "यह एक परीक्षण वाक्य है"
+
+
+test.py path
+Deepthi/TTS/Finetuning/Sesame/sesame-finetune/test.py
+
+# ................... using Subset ................
+
+# For creating subset
+shuf train.txt | head -n 3000 > train_subset.txt
+shuf val.txt | head -n 600 > val_subset.txt
+
+Deepthi/TTS/Finetuning/IndicSynth_processed/Hindi/train_subset.txt
+
+for adding root
+sed -i 's|^|/home/deepthi/|' train_subset.txt
+
+
+
+(venv_sesame) deepthi@b389743eceac:~/Deepthi/TTS/Finetuning/Sesame/sesame-finetune$
+
+Golden rule (remember this)
+
+Before EVERY training / pretokenization, run:
+
+export $(cat .env | xargs)
+
+
+python pretokenize.py \
+  --train_data /home/deepthi/Deepthi/TTS/Finetuning/IndicSynth_processed/Hindi/train_subset.json \
+  --val_data /home/deepthi/Deepthi/TTS/Finetuning/IndicSynth_processed/Hindi/val_subset.json \
+  --output /home/deepthi/Deepthi/TTS/Finetuning/IndicSynth_processed/Hindi/tokenized_subset.hdf5
+
+
+# if no pretrained model 
+python train.py \
+  --data /home/deepthi/Deepthi/TTS/Finetuning/IndicSynth_processed/Hindi/tokenized_subset_fixed.hdf5 \
+  --config ./configs/finetune_param_defaults.yaml \
+  --model_name_or_checkpoint_path sesame/csm-1b \
+  --n_epochs 50 \
+  --gen_every 500 \
+  --gen_sentence "यह एक परीक्षण वाक्य है"
+
+# training from scratch
+....................................
+export AUDIO_NUM_CODEBOOKS=32
+export WANDB_MODE=offline
+
+python train.py \
+  --data /home/deepthi/Deepthi/TTS/Finetuning/IndicSynth_processed/Hindi/tokenized_subset.hdf5 \
+  --config ./configs/finetune_param_defaults.yaml \
+  --train_from_scratch \
+  --n_epochs 50 \
+  --gen_every 500 \
+  --gen_sentence "यह एक परीक्षण वाक्य है"
+........................................................
+# By using pretrained weights
+python train.py \
+  --data /home/deepthi/Deepthi/TTS/Finetuning/IndicSynth_processed/Hindi/tokenized_subset.hdf5 \
+  --config ./configs/finetune_param_defaults.yaml \
+  --n_epochs 25 \
+  --gen_every 500 \
+  --gen_sentences "यह एक परीक्षण वाक्य है"
+OR...............................
+python train.py \
+  --data /home/deepthi/Deepthi/TTS/Finetuning/IndicSynth_processed/Hindi/tokenized_subset.hdf5 \
+  --config ./configs/finetune_param_defaults.yaml \
+  --model_name_or_checkpoint_path ./exp/model_18749.pt \
+  --n_epochs 50 \
+  --gen_every 500 \
+  --gen_sentences "यह एक परीक्षण वाक्य है"
+
+Do NOT train from scratch
+👉 Use pretrained model
+
+# for checking
+
+https://wandb.ai/deepthiajith-iit-ropar-tif
+https://wandb.ai/deepthiajith-iit-ropar-tif/csm-finetuning/runs/s3w9tu3w?nw=nwuserdeepthiajith14
+
