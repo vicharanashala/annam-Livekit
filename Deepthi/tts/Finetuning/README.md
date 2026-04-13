@@ -1,4 +1,4 @@
-1.XTTSv2
+# 1.XTTSv2
 
   File "/home/deepthi/miniconda3/envs/venv_xttsv2/lib/python3.10/site-packages/trainer/trainer.py", line 2098, in get_criterion
     criterion = model.get_criterion()
@@ -10,12 +10,12 @@ the key point:
 
 “not supported xtts finetuning”
 
-2. Mistral tts=Voxtral
+# 2. Mistral tts=Voxtral
  not supporting finetuned model
 
-3. Cosyvoice 2
+# 3. Cosyvoice 2
    Tried finetuninfg the latest version - installed all the packages  but many of the files are not suitable 
-5. Sesame -csm 1b
+# 4. Sesame -csm 1b
     Tried fine tuning using small subset of Hindi dataset(train-3000 and val - 600) epoch 50
    testing- produced uncleared voice.
 
@@ -132,4 +132,26 @@ Do NOT train from scratch
 
 https://wandb.ai/deepthiajith-iit-ropar-tif
 https://wandb.ai/deepthiajith-iit-ropar-tif/csm-finetuning/runs/s3w9tu3w?nw=nwuserdeepthiajith14
+
+# 5 svara -tts 
+kenpath/svara-tts-v1
+https://huggingface.co/kenpath/svara-tts-v1?utm_source=chatgpt.com
+At a Glance
+Languages (19): Hindi, Bengali, Marathi, Telugu, Kannada, Bhojpuri, Magahi, Chhattisgarhi, Maithili, Assamese, Bodo, Dogri, Gujarati, Malayalam, Punjabi, Tamil, Nepali, Sanskrit, Indian English.
+Expressivity: End-of-utterance style tags; natural prosody; code-switch aware.
+Latency & Deployment: Works well with GGUF exports; suitable for edge/CPU scenarios.
+Adaptability: LoRA-friendly for quick speaker/domain specialization.
+
+# Steps
+# UPDATE train.yaml (important for GPU)
+batch_size: 32   # (start safe, can increase later)
+num_workers: 2   # try 2, if shm error → reduce to 0
+epochs=70
+
+# RUN TRAINING ON CUDA
+python train.py --device=cuda:0 \
+--data_folder=/home/deepthi/Deepthi/TTS/Finetuning/svara/tts_data \
+hparams/train.yaml
+
+
 
